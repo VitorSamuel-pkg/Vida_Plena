@@ -5,13 +5,10 @@ const { Op } = require('sequelize');
 const clienteController = {
     listarClientes: async(req, res)=>{
         try {
-            let {ID_Cliente, nomeCliente} = req.query;
+            let {nomeCliente} = req.query;
 
             let conditions = {};
             
-            if (ID_Cliente) {
-                conditions.ID_Cliente = ID_Cliente;
-            }
             if (nomeCliente) {
                 conditions.nomeCliente = nomeCliente;
             }
