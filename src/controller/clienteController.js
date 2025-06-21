@@ -17,11 +17,8 @@ const clienteController = {
             }
 
             let clientes = await clienteModel.findAll({
-                where: {
-                    [Op.or]:[
-                        {ID_Cliente: {[Op.eq]: conditions.ID_Cliente}},
-                        {nomeCliente: {[Op.substring]: conditions.nomeCliente}}]
-            }});
+                where: conditions
+            });
             return res.status(200).json(clientes);
         } catch (error) {
             console.error('Erro ao listar clientes', error)
