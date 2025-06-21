@@ -23,8 +23,14 @@ const clienteModel =  sequelize.define('Clientes',{
     telefoneCliente:{
         type: DataTypes.STRING,
         allowNull: true,
-        unique: false
     },
-    
-
+    cepCliente:{
+        type: DataTypes.STRING,
+        allowNull: false
+    }
+},{
+    tableName: 'Clientes',
+    timestamps: false
 });
+
+module.exports = {clienteModel};
