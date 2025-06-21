@@ -24,7 +24,7 @@ const clienteModel =  sequelize.define('Clientes',{
         type: DataTypes.STRING,
         allowNull: true,
         unique: false
-    },
+    },z
     
 
 });
