@@ -5,23 +5,17 @@ const { Op } = require('sequelize');
 const clienteController = {
     listarClientes: async(req, res)=>{
         try {
-            let {ID_Cliente, nomeCliente} = req.query;
+            let {nomeCliente} = req.query;
 
             let conditions = {};
             
-            if (ID_Cliente) {
-                conditions.ID_Cliente = ID_Cliente;
-            }
             if (nomeCliente) {
                 conditions.nomeCliente = nomeCliente;
             }
 
             let clientes = await clienteModel.findAll({
-                where: {
-                    [Op.or]:[
-                        {ID_Cliente: {[Op.eq]: conditions.ID_Cliente}},
-                        {nomeCliente: {[Op.substring]: conditions.nomeCliente}}]
-            }});
+                where: conditions
+            });
             return res.status(200).json(clientes);
         } catch (error) {
             console.error('Erro ao listar clientes', error)
