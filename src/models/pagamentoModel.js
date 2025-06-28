@@ -1,11 +1,7 @@
 const { sequelize } = require("../config/db");
 const { DataTypes } = require('sequelize');
 const { pedidoModel } = require('./pedidoModel');
-<<<<<<< HEAD
-const{clienteModel} = require('./clienteModel')
-=======
 const { clienteModel } = require('./clienteModel');
->>>>>>> 78530cc13209f7e0a8da934520e417e325569257
 
 const pagamentoModel = sequelize.define('Pagamentos', {
     ID_Pagamento:{
