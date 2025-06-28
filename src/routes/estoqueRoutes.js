@@ -10,13 +10,14 @@ router.put("/:ID_Estoque", estoqueController.atualizarEntrada);
 
 router.put("/:ID_Estoque", estoqueController.atualizarSaida);
 
+module.exports = { rotasEstoque: router};    
 
-const teste = async ()=> {
+
+
+/*const teste = async ()=> {
     const dados = await estoqueModel.findAll();
 
     console.log(dados);
 }
 
-teste();
-
-//module.exports = { rotasEstoque: router};    
+teste();*/
