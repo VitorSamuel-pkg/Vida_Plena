@@ -31,9 +31,8 @@ const processoVendaModel = sequelize.define('ProcessoVendas', {
      timestamps: false
 });
 
-produtoModel.hasMany(processoVendaModel, {foreignKey: 'idProcessoProduto', as: 'Produto'});
-pedidoModel.hasMany(processoVendaModel, {foreignKey: 'idProcessoPedido', as: 'Pedido'});
-processoVendaModel.belongsTo(produtoModel, {foreignKey: 'idProcessoProduto', as: 'Produto'});
-processoVendaModel.belongsTo(pedidoModel, {foreignKey: 'idProcessoPedido', as: 'Pedido'});
+produtoModel.belongsToMany(pedidoModel, {through: processoVendaModel, foreignKey: 'idProcessoProdutos', as: 'produtoPedido'});
+
+pedidoModel.belongsToMany(produtoModel, {through: processoVendaModel, foreignKey: 'idProcessoPedidos', as: 'pedidoProduto'});
 
 module.exports = {processoVendaModel};
