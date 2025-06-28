@@ -13,11 +13,11 @@ const estoqueModel = sequelize.define('Estoque', {
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    qtdSaidaProduto:{
+    qtdSaidaProdutos:{
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    idEstoqueProduto:{
+    idProdutoEstoque:{
         type: DataTypes.INTEGER,
         references:{
             model: produtoModel,
@@ -32,6 +32,6 @@ const estoqueModel = sequelize.define('Estoque', {
 });
 
 produtoModel.hasMany(estoqueModel, {estoqueModel, foreignKey: 'idProdutoEstoque', as: 'idProdutosEstoque'});
-estoqueModel.belongsToMany(produtoModel, {through: estoqueModel, foreignKey: 'idEstoqueProduto', as: 'idEstoqueProdutos'});
+estoqueModel.belongsToMany(produtoModel, {through: estoqueModel, foreignKey: 'idProdutoEstoque', as: 'idEstoqueProdutos'});
 
 module.exports = {estoqueModel};
