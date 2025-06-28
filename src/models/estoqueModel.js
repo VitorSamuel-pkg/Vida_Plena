@@ -32,6 +32,6 @@ const estoqueModel = sequelize.define('Estoque', {
 });
 
 produtoModel.hasMany(estoqueModel, {estoqueModel, foreignKey: 'idProdutoEstoque', as: 'idProdutosEstoque'});
-estoqueModel.belongsToMany(produtoModel, {through: estoqueModel, foreignKey: 'idProdutoEstoque', as: 'idEstoqueProdutos'});
+estoqueModel.belongsTo(produtoModel, {estoqueModel, foreignKey: 'idProdutoEstoque', as: 'idEstoqueProdutos'});
 
 module.exports = {estoqueModel};
