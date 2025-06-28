@@ -1,5 +1,5 @@
 const express = require("express");
-const router = express.Router(); //instancia o router, um objeto do express usado para definir rotas de forma modular e organizada.
+const router = express.Router(); 
 
 const {clienteController} = require("../controller/clienteController")
 

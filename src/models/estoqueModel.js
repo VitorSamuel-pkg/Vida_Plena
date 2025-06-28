@@ -13,7 +13,7 @@ const estoqueModel = sequelize.define('Estoque', {
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    qtdSaidoProduto:{
+    qtdSaidaProduto:{
         type: DataTypes.INTEGER,
         allowNull: false
     },
@@ -33,3 +33,5 @@ const estoqueModel = sequelize.define('Estoque', {
 
 produtoModel.hasMany(estoqueModel, {foreignKey: 'idEstoqueProduto', as: 'Produto'});
 estoqueModel.belongsToMany(produtoModel, {foreignKey: 'idEstoqueProduto', as: 'Produto'});
+
+module.exports = {estoqueModel};

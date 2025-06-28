@@ -34,7 +34,7 @@ const pedidoModel = sequelize.define('Pedidos',{
     timestamps: false
 });
 
-clienteModel.hasMany(pedidoModel, {foreignKey: 'idPedidoCliente', as: 'Cliente'});
-pedidoModel.belongsTo(clienteModel, {foreignKey: 'idPedidoCliente', as: 'Cliente'});
+clienteModel.hasMany(pedidoModel, {foreignKey: 'idPedidoCliente', as: 'clientePedido'});
+pedidoModel.belongsTo(clienteModel, {foreignKey: 'idPedidoCliente', as: 'pedidoCliente'});
 
 module.exports = {pedidoModel};

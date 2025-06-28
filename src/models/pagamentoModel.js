@@ -1,7 +1,11 @@
 const { sequelize } = require("../config/db");
 const { DataTypes } = require('sequelize');
 const { pedidoModel } = require('./pedidoModel');
+<<<<<<< HEAD
 const{clienteModel} = require('./clienteModel')
+=======
+const { clienteModel } = require('./clienteModel');
+>>>>>>> 78530cc13209f7e0a8da934520e417e325569257
 
 const pagamentoModel = sequelize.define('Pagamentos', {
     ID_Pagamento:{
@@ -9,7 +13,7 @@ const pagamentoModel = sequelize.define('Pagamentos', {
         autoIncrement: true,
         primaryKey: true
     },
-    formaDePagamento:{
+    formaPagamento:{
         type: DataTypes.STRING,
         allowNull: false
     },
@@ -34,7 +38,10 @@ const pagamentoModel = sequelize.define('Pagamentos', {
     timestamps: false
 });
 
-pedidoModel.hasMany(pagamentoModel, {foreignKey: 'idPagamentoPedido', as: 'Pedido'});
-pagamentoModel.belongsTo(pedidoModel, {foreignKey: 'idPagamentoPedido', as: 'Pedido'});
+pedidoModel.hasMany(pagamentoModel, {foreignKey: 'idPagamentoPedido', as: 'pedidoPagamento'});
+pagamentoModel.belongsTo(pedidoModel, {foreignKey: 'idPagamentoPedido', as: 'pagamentoPedido'});
+
+clienteModel.hasMany(pagamentoModel, {foreignKey: 'idPagamentoCliente', as: 'clientePagamento'});
+pagamentoModel.belongsTo(clienteModel, {foreignKey: 'idPagamentoCliente', as: 'pagamentoCliente'});
 
 module.exports = { pagamentoModel };
