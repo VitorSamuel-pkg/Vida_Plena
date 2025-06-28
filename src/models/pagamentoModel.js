@@ -1,7 +1,7 @@
 const { sequelize } = require("../config/db");
 const { DataTypes } = require('sequelize');
-
 const { pedidoModel } = require('./pedidoModel');
+const{clienteModel} = require('./clienteModel')
 
 const pagamentoModel = sequelize.define('Pagamentos', {
     ID_Pagamento:{

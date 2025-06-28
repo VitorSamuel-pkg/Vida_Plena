@@ -11,7 +11,6 @@ const pedidoModel = sequelize.define('Pedidos',{
     },
     numeroPedido:{
         type: DataTypes.INTEGER,
-        autoIncrement: true,
         allowNull: false
     },
     valorTotal:{
