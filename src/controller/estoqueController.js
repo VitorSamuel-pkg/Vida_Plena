@@ -80,4 +80,4 @@ const estoqueController = {
 
 }
 
-module.exports= {clienteController};
+module.exports= {estoqueController};
