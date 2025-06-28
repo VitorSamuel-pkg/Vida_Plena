@@ -63,7 +63,7 @@ const estoqueController = {
         }*/
 
         let dadosAtualizado = {
-            qtdSaidoProduto
+            qtdSaidaProduto
             
         };
 
@@ -80,4 +80,4 @@ const estoqueController = {
 
 }
 
-module.exports= {clienteController};
+module.exports= {estoqueController};
