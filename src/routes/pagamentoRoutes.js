@@ -9,8 +9,6 @@ router.post("/", pagamentoController.cadastrarPagamento);
 
 router.put("/:ID_Pagamento", pagamentoController.atualizarPagamento);
 
-router.delete("/:ID_Pagamento" , pagamentoController.deletarPagamento);
-
 module.exports = {rotasPagamento: router};    
 
 /*const teste = async ()=> {
