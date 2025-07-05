@@ -4,40 +4,46 @@ const { pedidoModel } = require('./pedidoModel');
 const { clienteModel } = require('./clienteModel');
 
 const pagamentoModel = sequelize.define('Pagamentos', {
-    ID_Pagamento:{
+    ID_Pagamento: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true
     },
-    formaPagamento:{
+    formaPagamento: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    idPagamentoPedido:{
+    idPagamentoPedido: {
         type: DataTypes.INTEGER,
-        references:{
+        references: {
             model: pedidoModel,
             key: 'ID_Pedido'
         },
         allowNull: false
     },
-     idPagamentoCliente:{
+    idPagamentoCliente: {
         type: DataTypes.INTEGER,
-        references:{
+        references: {
             model: clienteModel,
             key: 'ID_Cliente'
         },
         allowNull: false
+    },
+    statusPagamento: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: 'ativo' // Valores possíveis: 'ativo', 'cancelado', etc.
     }
-},{
+}, {
     tableName: 'Pagamentos',
     timestamps: false
 });
 
-pedidoModel.hasMany(pagamentoModel, {foreignKey: 'idPagamentoPedido', as: 'pedidoPagamento'});
-pagamentoModel.belongsTo(pedidoModel, {foreignKey: 'idPagamentoPedido', as: 'pagamentoPedido'});
+// Relacionamentos
+pedidoModel.hasMany(pagamentoModel, { foreignKey: 'idPagamentoPedido', as: 'pedidoPagamento' });
+pagamentoModel.belongsTo(pedidoModel, { foreignKey: 'idPagamentoPedido', as: 'pagamentoPedido' });
 
-clienteModel.hasMany(pagamentoModel, {foreignKey: 'idPagamentoCliente', as: 'clientePagamento'});
-pagamentoModel.belongsTo(clienteModel, {foreignKey: 'idPagamentoCliente', as: 'pagamentoCliente'});
+clienteModel.hasMany(pagamentoModel, { foreignKey: 'idPagamentoCliente', as: 'clientePagamento' });
+pagamentoModel.belongsTo(clienteModel, { foreignKey: 'idPagamentoCliente', as: 'pagamentoCliente' });
 
 module.exports = { pagamentoModel };
