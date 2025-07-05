@@ -41,7 +41,7 @@ const pedidoController = {
             }
 
 
-            await pedidoModel.create({numeroPedido, valorTotal, dataPedido, id});
+            await pedidoModel.create({numeroPedido, valorTotal, dataPedido, idPedidoCliente});
 
             return res.status(201).json({message: 'Pedido cadastrado com sucesso!'});
 
@@ -50,6 +50,34 @@ const pedidoController = {
             return res.status(500).json({message: "Erro ao cadastrar pedido!"})
         }
     },
+   atualizarPedido: async (req, res) => {
+    try {
+        const { ID_Pedido } = req.params;
+        const { numeroPedido, valorTotal, dataPedido } = req.body;
+
+        let pedido = await pedidoModel.findByPk(ID_Pedido);
+
+        if (!pedido) {
+            return res.status(404).json({ message: 'Pedido não encontrado!' });
+        }
+
+        let dadosAtualizado = {
+            numeroPedido,
+            valorTotal,
+            dataPedido 
+
+        };
+
+        await pedidoModel.update(dadosAtualizado, { where: { ID_Pedido } });
+
+        pedido = await pedidoModel.findByPk(ID_Pedido);
+        return res.status(200).json({ message: 'Pedido atualizado com sucesso', pedido: pedido });
+
+    } catch (error) {
+        console.error("Erro ao atualizar Pedido!", error);
+        return res.status(500).json({ message: "Erro ao atualizar pedido!" });
+    };
+  },
    atualizarPedido: async (req, res) => {
     try {
         const { ID_Pedido } = req.params;
