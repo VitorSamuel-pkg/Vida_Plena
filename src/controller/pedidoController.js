@@ -41,7 +41,7 @@ const pedidoController = {
             }
 
 
-            await pedidoModel.create({numeroPedido, valorTotal, dataPedido, idPedidoCliente});
+            await pedidoModel.create({numeroPedido, valorTotal, dataPedido, id});
 
             return res.status(201).json({message: 'Pedido cadastrado com sucesso!'});
 
