@@ -1,17 +1,17 @@
 const { default: Message } = require('tedious/lib/message');
-const {produtoModel} = require('../models/produtoModel');
+const {pedidoModel} = require('../models/pedidoModel');
 const { Op } = require('sequelize');
 const { pedidoModel } = require('../models/pedidoModel');
 
 const produtoController = {
     listarPedidos: async(req, res)=>{
         try {
-            let {nomeProduto} = req.query;
+            let {numeroPedido} = req.query;
 
             let conditions = {};
             
-            if (nomeProduto) {
-                conditions.nomeProduto = nomeProduto;
+            if (numeroPedido) {
+                conditions.numeroPedido = numeroPedido;
             }
 
             let pedido = await pedidoModel.findAll({
@@ -23,7 +23,7 @@ const produtoController = {
             return res.status(500).json({message: 'Erro ao listar Pedidos'})
         }
     }, 
-    cadastrarProduto: async(req, res)=>{
+    cadastrarPedido: async(req, res)=>{
         try {
             
             const {nomeProduto, valorProduto, tipoProduto, marcaProduto} = req.body;
@@ -45,7 +45,7 @@ const produtoController = {
             return res.status(500).json({message: "Erro ao cadastrar produto!"})
         }
     },
-   atualizarProduto: async (req, res) => {
+   atualizarPedido: async (req, res) => {
     try {
         const { ID_Produto } = req.params;
         const { nomeProduto, valorProduto, tipoProduto, marcaProduto } = req.body;
@@ -73,7 +73,7 @@ const produtoController = {
         return res.status(500).json({ message: "Erro ao atualizar produto!" });
     };
   },
-    deletarProduto: async(req, res)=>{
+    deletarPedido: async(req, res)=>{
 
        try {
 
@@ -102,4 +102,4 @@ const produtoController = {
     }
 };
 
-module.exports= {produtoController};
+module.exports= {pedidoController};
