@@ -1,5 +1,6 @@
 const { default: Message } = require('tedious/lib/message');
 const {pedidoModel} = require('../models/pedidoModel');
+const pM = require('../models/produtoModel');
 const { Op } = require('sequelize');
 const { produtoModel } = require('../models/produtoModel');
 
@@ -26,9 +27,9 @@ const produtoController = {
     cadastrarPedido: async(req, res)=>{
         try {
             
-            const {nomeProduto, valorProduto, tipoProduto, marcaProduto} = req.body;
+            const {nomeProduto, valorTotal, dataPedido} = req.body;
 
-            if (!nomeProduto || !valorProduto || !tipoProduto ||!marcaProduto){
+            if (!nomeProduto || !valorTotal || !dataPedido){
                 return res.status(400).json({message: "Campos obrigatórios não preenchidos!"});
             } 
 
@@ -47,10 +48,10 @@ const produtoController = {
     },
    atualizarPedido: async (req, res) => {
     try {
-        const { ID_Produto } = req.params;
+        const { ID_Pedido } = req.params;
         const { nomeProduto, valorProduto, tipoProduto, marcaProduto } = req.body;
 
-        let produto = await produtoModel.findByPk(ID_Produto);
+        let produto = await produtoModel.findByPk(ID_Pedido);
 
         if (!produto) {
             return res.status(404).json({ message: 'Produto não encontrado!' });
@@ -63,9 +64,9 @@ const produtoController = {
             marcaProduto
         };
 
-        await produtoModel.update(dadosAtualizado, { where: { ID_Produto } });
+        await produtoModel.update(dadosAtualizado, { where: { ID_Pedido } });
 
-        produto = await produtoModel.findByPk(ID_Produto);
+        produto = await produtoModel.findByPk(ID_Pedido);
         return res.status(200).json({ message: 'Produto atualizado com sucesso', produto: produto });
 
     } catch (error) {
@@ -77,8 +78,8 @@ const produtoController = {
 
        try {
 
-        const {ID_Produto} = req.params;
-        let produto = await produtoModel.findByPk(ID_Produto);
+        const {ID_Pedido} = req.params;
+        let produto = await produtoModel.findByPk(ID_Pedido);
 
         if (!produto) {
             return res.status(404).json({ message: 'Produto não encontrado!' });
@@ -86,7 +87,7 @@ const produtoController = {
 
         let nomeProduto = produto.nomeProduto;
 
-        let result = await produtoModel.destroy({where: {ID_Produto}});
+        let result = await produtoModel.destroy({where: {ID_Pedido}});
 
         if (result>0) {
             return res.status(200).json({message: `${nomeProduto} foi excluido com sucesso!`});
