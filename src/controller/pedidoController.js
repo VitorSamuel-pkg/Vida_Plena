@@ -1,7 +1,7 @@
 const { default: Message } = require('tedious/lib/message');
 const {pedidoModel} = require('../models/pedidoModel');
 const { Op } = require('sequelize');
-const { pedidoModel } = require('../models/pedidoModel');
+const { produtoModel } = require('../models/produtoModel');
 
 const produtoController = {
     listarPedidos: async(req, res)=>{
