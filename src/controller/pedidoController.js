@@ -1,9 +1,10 @@
 const { default: Message } = require('tedious/lib/message');
 const {produtoModel} = require('../models/produtoModel');
 const { Op } = require('sequelize');
+const { pedidoModel } = require('../models/pedidoModel');
 
 const produtoController = {
-    listarProdutos: async(req, res)=>{
+    listarPedidos: async(req, res)=>{
         try {
             let {nomeProduto} = req.query;
 
@@ -13,13 +14,13 @@ const produtoController = {
                 conditions.nomeProduto = nomeProduto;
             }
 
-            let produtos = await produtoModel.findAll({
+            let pedido = await pedidoModel.findAll({
                 where: conditions
             });
-            return res.status(200).json(produtos);
+            return res.status(200).json(pedido);
         } catch (error) {
-            console.error('Erro ao listar Produtos', error)
-            return res.status(500).json({message: 'Erro ao listar Produtos'})
+            console.error('Erro ao listar Pedidos', error)
+            return res.status(500).json({message: 'Erro ao listar Pedidos'})
         }
     }, 
     cadastrarProduto: async(req, res)=>{

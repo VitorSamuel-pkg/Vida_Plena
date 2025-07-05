@@ -40,13 +40,13 @@ const pagamentoController = {
                 return res.status(404).json({message: 'pedido ou cliente nao encontrado!'});
             }
 
-            await clienteModel.create({nomeCliente, cpfCliente, emailCliente, telefoneCliente, cepCliente});
+            await pagamentoModel.create({formaPagamento, idPagamentoPedido, idPagamentoCliente});
 
-            return res.status(201).json({message: 'Cliente cadastrado com sucesso!'});
+            return res.status(201).json({message: 'Pagamento feito com sucesso!'});
 
         } catch (error) {
-            console.error("Erro ao cadastrar cliente!", error);
-            return res.status(500).json({message: "Erro ao cadastrar cliente!"})
+            console.error("Erro ao efetuar ao pagamento!", error);
+            return res.status(500).json({message: "Erro ao efetuar ao pagamento!"})
         }
     },
    atualizarPagamento: async (req, res) => {
