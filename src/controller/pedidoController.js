@@ -4,7 +4,7 @@ const pM = require('../models/produtoModel');
 const { Op } = require('sequelize');
 const { produtoModel } = require('../models/produtoModel');
 
-const produtoController = {
+const pedidoController = {
     listarPedidos: async(req, res)=>{
         try {
             let {numeroPedido} = req.query;
@@ -26,52 +26,56 @@ const produtoController = {
     }, 
     cadastrarPedido: async(req, res)=>{
         try {
-            
-            const {nomeProduto, valorTotal, dataPedido} = req.body;
 
-            if (!nomeProduto || !valorTotal || !dataPedido){
+
+            const {numeroPedido, valorTotal, dataPedido } = req.body;
+
+            if (!numeroPedido || !valorTotal || !dataPedido){
                 return res.status(400).json({message: "Campos obrigatórios não preenchidos!"});
             } 
 
-            if(produto){
-                return res.status(409).json({message: 'Produto já cadastrado!'});
+            const pedidoExistente = await pedidoModel.findOne({ where: { numeroPedido } });
+
+            if (pedidoExistente) {
+                return res.status(409).json({ message: 'Pedido já cadastrado!' });
             }
 
-            await produtoModel.create({nomeProduto, valorProduto, tipoProduto, marcaProduto});
 
-            return res.status(201).json({message: 'Produto cadastrado com sucesso!'});
+            await pedidoModel.create({numeroPedido, valorTotal, dataPedido });
+
+            return res.status(201).json({message: 'Pedido cadastrado com sucesso!'});
 
         } catch (error) {
-            console.error("Erro ao cadastrar produto!", error);
-            return res.status(500).json({message: "Erro ao cadastrar produto!"})
+            console.error("Erro ao cadastrar pedido!", error);
+            return res.status(500).json({message: "Erro ao cadastrar pedido!"})
         }
     },
    atualizarPedido: async (req, res) => {
     try {
         const { ID_Pedido } = req.params;
-        const { nomeProduto, valorProduto, tipoProduto, marcaProduto } = req.body;
+        const { numeroPedido, valorTotal, dataPedido } = req.body;
 
-        let produto = await produtoModel.findByPk(ID_Pedido);
+        let pedido = await pedidoModel.findByPk(ID_Pedido);
 
-        if (!produto) {
-            return res.status(404).json({ message: 'Produto não encontrado!' });
+        if (!pedido) {
+            return res.status(404).json({ message: 'Pedido não encontrado!' });
         }
 
         let dadosAtualizado = {
-            nomeProduto,
-            valorProduto,
-            tipoProduto,
-            marcaProduto
+            numeroPedido,
+            valorTotal,
+            dataPedido,
+            
         };
 
-        await produtoModel.update(dadosAtualizado, { where: { ID_Pedido } });
+        await pedidoModel.update(dadosAtualizado, { where: { ID_Pedido } });
 
-        produto = await produtoModel.findByPk(ID_Pedido);
-        return res.status(200).json({ message: 'Produto atualizado com sucesso', produto: produto });
+        pedido = await pedidoModel.findByPk(ID_Pedido);
+        return res.status(200).json({ message: 'Pedido atualizado com sucesso', pedido: pedido });
 
     } catch (error) {
-        console.error("Erro ao atualizar Produto!", error);
-        return res.status(500).json({ message: "Erro ao atualizar produto!" });
+        console.error("Erro ao atualizar Pedido!", error);
+        return res.status(500).json({ message: "Erro ao atualizar pedido!" });
     };
   },
     deletarPedido: async(req, res)=>{
@@ -79,25 +83,25 @@ const produtoController = {
        try {
 
         const {ID_Pedido} = req.params;
-        let produto = await produtoModel.findByPk(ID_Pedido);
+        let pedido = await pedidoModel.findByPk(ID_Pedido);
 
-        if (!produto) {
-            return res.status(404).json({ message: 'Produto não encontrado!' });
+        if (!pedido) {
+            return res.status(404).json({ message: 'Pedido não encontrado!' });
         }
 
-        let nomeProduto = produto.nomeProduto;
+        let numeroPedido = pedido.numeroPedido;
 
-        let result = await produtoModel.destroy({where: {ID_Pedido}});
+        let result = await pedidoModel.destroy({where: {ID_Pedido}});
 
         if (result>0) {
-            return res.status(200).json({message: `${nomeProduto} foi excluido com sucesso!`});
+            return res.status(200).json({message: `${numeroPedido} foi excluido com sucesso!`});
         } else{
-            return res.status(404).json({message: 'Erro ao Excluir Produto!'});
+            return res.status(404).json({message: 'Erro ao Excluir pedido!'});
         }
 
         } catch (error) {
-            console.error('Erro ao excluir Produto:', error);
-            return res.status(500).json({message: 'Erro ao excluir Produto'});
+            console.error('Erro ao excluir pedido:', error);
+            return res.status(500).json({message: 'Erro ao excluir pedido'});
         }
 
     }
