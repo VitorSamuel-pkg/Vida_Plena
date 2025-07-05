@@ -64,7 +64,8 @@ const pedidoController = {
         let dadosAtualizado = {
             numeroPedido,
             valorTotal,
-            dataPedido,      
+            dataPedido 
+
         };
 
         await pedidoModel.update(dadosAtualizado, { where: { ID_Pedido } });
